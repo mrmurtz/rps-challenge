@@ -1,14 +1,25 @@
 require 'game'
 
 describe Game do
-  subject(:game) {described_class.new}
 
-  # it "the game chooses Paper" do
-  #   allow(game).to receive(:game_choice).and_return('Paper')
-  #   expect(game.game_choice).to eq 'Paper'
-  # end
+  let(:player1) {double :player1}
+  let(:computer) {double :computer}
 
-  it "chooses a random choice" do
-    expect(['Rock', 'Paper', 'Scissors']).to include game.random_choice
+  describe '#create' do
+    it "creates a new game instance" do
+      expect(described_class).to receive(:new)
+      described_class.create(player1, computer)
+    end
+  end
+
+  describe '#instance' do
+    it '#instance returns nil when first called' do
+      expect(described_class.instance).to eq nil
+    end
+
+    it "returns the game instance when called after instantiation" do
+      game = described_class.create(player1, computer)
+      expect(described_class.instance).to eq game
+    end
   end
 end
